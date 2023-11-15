@@ -9,6 +9,9 @@ on:
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
 
     steps:
       - name: Setup PHP
@@ -19,14 +22,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Change directory to laravel folder
-        run: cd laravel-backend
-
       - name: Copy .env
-        run: pwd && ls -a
+        run: cp laravel-backend/.env.example laravel-backend/.env
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: cd laravel-backend && composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Update Dependencies
         run: composer update
