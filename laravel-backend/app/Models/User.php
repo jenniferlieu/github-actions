@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Clickbar\Magellan\Database\Eloquent\HasPostgisColumns;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasPostgisColumns;
+
+    /**
+     * Attributes that use the postgis extension types
+     */
+    protected array $postgisColumns = [
+        'coordinates' => [
+            'type' => 'geography',
+            'srid' => 4326,
+        ],
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +33,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'coordinates',
     ];
 
     /**
