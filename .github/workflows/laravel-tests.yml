@@ -26,11 +26,6 @@ jobs:
           - 5432:5432
 
     steps:
-      - name: Verify Postgres connection from host
-        run: |
-          sudo apt-get install -y postgresql-client
-          psql --host=127.0.0.1 --port=32574 --username=postgres --password=postgres
-
       - name: Setup PHP
         uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
@@ -38,6 +33,11 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Verify Postgres connection from host
+        run: |
+          sudo apt-get install -y postgresql-client
+          psql --host=127.0.0.1 --port=32574 --username=postgres --password=postgres
 
       - name: Copy .env
         run: cp .env.example .env
