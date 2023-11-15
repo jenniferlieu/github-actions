@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dd', function () {
+Route::get('/', function () {
     return view('welcome');
 });
