@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Change directory to laravel folder
-        uses: cd laravel-backend
+        run: cd laravel-backend
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
