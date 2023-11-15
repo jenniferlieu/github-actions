@@ -23,7 +23,7 @@ jobs:
         run: cd laravel-backend
 
       - name: Copy .env
-        run: cp .env.example .env
+        run: pwd && ls -a
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
