@@ -3,10 +3,10 @@ name: Test Laravel
 on:
   push:
     branches: ["main"]
-    paths: ["backend"]
+    paths: ["laravel-backend"]
   pull_request:
     branches: ["main"]
-    paths: ["backend"]
+    paths: ["laravel-backend"]
 
 jobs:
   laravel-tests:
