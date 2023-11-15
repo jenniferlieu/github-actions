@@ -19,3 +19,17 @@ Route::get('users', function () {
     $user = User::all();
     return response()->json(['user' => $user], 200);
 });
+
+Route::post('users', function (Request $request) {
+    $userRequest = $request->all();
+
+    // create coordinates field as type geography with latitude and longitude points
+    $userRequest['coordinates'] = \Clickbar\Magellan\Data\Geometries\Point::makeGeodetic($request->latitude, $request->longitude);
+    unset($userRequest['latitude']); // remove latitude field
+    unset($userRequest['longitude']); // remove longitude field
+
+    // Insert into storage
+    $user = User::create($userRequest);
+
+    return response()->json(['user' => $user], 201);
+});
