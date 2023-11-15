@@ -37,7 +37,7 @@ jobs:
       - name: Verify Postgres connection from host
         run: |
           sudo apt-get install -y postgresql-client
-          psql --host=127.0.0.1 --port=5432 --username=postgres
+          psql --host=127.0.0.1 --port=5432 --username=postgres --no-password
 
       - name: Copy .env
         run: cp .env.example .env
