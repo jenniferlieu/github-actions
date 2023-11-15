@@ -24,6 +24,8 @@ jobs:
           POSTGRES_DB: testing
         ports:
           - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Setup PHP
@@ -34,30 +36,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Verify Postgres connection from host
-        run: |
-          sudo apt-get install -y postgresql-client
-          psql --host=127.0.0.1 --port=5432 --username=postgres --no-password
-
       - name: Copy .env
         run: cp .env.example .env
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Update Dependencies
-        run: composer update
+        run: |
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          composer update
 
       - name: Generate key
         run: php artisan key:generate
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
 
       - name: Create database tables and entires
         run: |
           php artisan migrate
           php artisan db:seed
-
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests (Unit and Feature tests)
         run: php artisan test
