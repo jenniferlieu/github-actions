@@ -1,9 +1,6 @@
 name: Test Backend Feature Tests
 
 on:
-  push:
-    branches: ["main"]
-    # paths: ["laravel-backend/**"]
   pull_request:
     branches: ["main"]
     # paths: ["laravel-backend/**"]
