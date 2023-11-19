@@ -43,7 +43,7 @@ jobs:
         image: postgis/postgis:16-3.4
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: testing
         ports:
           - 5432:5432
@@ -67,9 +67,14 @@ jobs:
           php artisan key:generate
           chmod -R 777 storage bootstrap/cache
 
-      - name: Create database tables and entires
+      - name: Create testing schema in database
+        run: psql -h localhost -U postgres -c 'CREATE SCHEMA testing;'
+        env:
+          PGPASSWORD: password
+
+      - name: Create database tables
         run: |
-          php artisan migrate
+          php artisan migrate 
           php artisan db:seed
 
       - name: Execute Feature Tests
