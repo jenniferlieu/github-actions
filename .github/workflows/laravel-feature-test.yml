@@ -1,4 +1,4 @@
-name: Test Laravel
+name: Test Backend Feature Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     # paths: ["laravel-backend/**"]
 
 jobs:
-  laravel-tests:
+  Feature-Tests:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -55,5 +55,5 @@ jobs:
           php artisan migrate
           php artisan db:seed
 
-      - name: Execute tests (Unit and Feature tests)
-        run: php artisan test
+      - name: Execute Feature Tests
+        run: php artisan test --testsuite=Feature
