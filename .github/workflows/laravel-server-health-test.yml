@@ -1,6 +1,9 @@
 name: Test Backend Server Health
 
 on:
+  push:
+    branches: ["main"]
+    # paths: ["laravel-backend/**"]
   pull_request:
     branches: ["main"]
     # paths: ["laravel-backend/**"]
