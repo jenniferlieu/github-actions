@@ -15,6 +15,10 @@ use App\Models\User;
 |
 */
 
+Route::get('hello', function () {
+    return response()->json(['message' => 'hello world'], 200);
+});
+
 Route::get('users', function () {
     $user = User::all();
     return response()->json(['user' => $user], 200);

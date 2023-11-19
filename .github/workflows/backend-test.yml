@@ -1,4 +1,4 @@
-name: Test Backend Feature Tests
+name: Test Backend
 
 on:
   pull_request:
