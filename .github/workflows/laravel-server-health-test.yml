@@ -1,9 +1,6 @@
 name: Test Backend Server Health
 
 on:
-  push:
-    branches: ["main"]
-    # paths: ["laravel-backend/**"]
   pull_request:
     branches: ["main"]
     # paths: ["laravel-backend/**"]
@@ -38,5 +35,5 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Execute Feature Tests
+      - name: Execute Server Health Test
         run: php artisan test tests/Unit/ServerHealthTest.php
