@@ -15,18 +15,6 @@ jobs:
       run:
         working-directory: ./laravel-backend
 
-    services:
-      postgres:
-        image: postgis/postgis:16-3.4
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: testing
-        ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -50,10 +38,5 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Create database tables and entires
-        run: |
-          php artisan migrate
-          php artisan db:seed
-
       - name: Execute Feature Tests
-        run: php artisan test tests/Unit/ServerTest.php
+        run: php artisan test tests/Unit/ServerHealthTest.php
