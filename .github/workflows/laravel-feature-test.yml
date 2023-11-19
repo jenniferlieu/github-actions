@@ -9,7 +9,7 @@ on:
     # paths: ["laravel-backend/**"]
 
 jobs:
-  Feature-Tests:
+  Backend-Feature-Test:
     runs-on: ubuntu-latest
     defaults:
       run:
